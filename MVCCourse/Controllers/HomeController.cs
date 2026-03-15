@@ -4,15 +4,10 @@ namespace MVCCourse.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        public IActionResult Index()
         {
-            //return View();
-            return "Hello World!!!!!!!!!!!";
+            return View();
         }
         
-        public string About()
-        {
-            return "This is the about page.";
-        }
     }
 }
