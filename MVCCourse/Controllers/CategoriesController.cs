@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCCourse.Models;
+using System.ComponentModel;
 
 namespace MVCCourse.Controllers
 {
@@ -9,9 +11,10 @@ namespace MVCCourse.Controllers
             return View();
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-            return new ContentResult { Content = id.ToString() };
+            var category = new Category { CategoryId = id.HasValue?id.Value:0 };
+            return View(category);
         }
     }
 }
