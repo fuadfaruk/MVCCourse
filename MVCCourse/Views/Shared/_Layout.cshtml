@@ -28,7 +28,13 @@
         </nav>
     </header>
     <div class="container">
-        @RenderBody()
+        <div class="pb-3">
+            @RenderSection("Title")
+        </div>
+        <div>
+            @RenderBody()
+        </div>
     </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
