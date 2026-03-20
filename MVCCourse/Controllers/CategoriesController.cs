@@ -17,5 +17,12 @@ namespace MVCCourse.Controllers
             var category = CategoryRepository.GetCategoryById(id ?? 0);
             return View(category);
         }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            CategoryRepository.UpdateCategory(category.CategoryId, category);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
