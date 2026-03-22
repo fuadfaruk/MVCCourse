@@ -32,8 +32,7 @@ namespace MVCCourse.Controllers
 
         public IActionResult Add()
         {
-            var category = new Category();
-            return View(category);
+            return View();
         }
 
         [HttpPost]
@@ -46,6 +45,12 @@ namespace MVCCourse.Controllers
             }
 
             return View(category);
+        }
+
+        public IActionResult Delete(int categoryId)
+        {
+            CategoryRepository.DeleteCategory(categoryId);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
