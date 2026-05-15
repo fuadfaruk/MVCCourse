@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCCourse.Interfaces;
 using MVCCourse.Models;
 using System.ComponentModel;
 
@@ -6,9 +7,14 @@ namespace MVCCourse.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoriesController(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
         public IActionResult Index()
         {
-            var categories = CategoryRepository.GetCategories();
+            var categories = _categoryRepository.GetCategories();
             return View(categories);
         }
 
@@ -16,7 +22,7 @@ namespace MVCCourse.Controllers
         {
             ViewBag.Action = "edit";
 
-            var category = CategoryRepository.GetCategoryById(id ?? 0);
+            var category = _categoryRepository.GetCategoryById(id ?? 0);
             return View(category);
         }
 
@@ -25,7 +31,7 @@ namespace MVCCourse.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoryRepository.UpdateCategory(category.CategoryId, category);
+                _categoryRepository.UpdateCategory(category.CategoryId, category);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -44,7 +50,7 @@ namespace MVCCourse.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoryRepository.AddCategory(category);
+                _categoryRepository.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -53,7 +59,7 @@ namespace MVCCourse.Controllers
 
         public IActionResult Delete(int categoryId)
         {
-            CategoryRepository.DeleteCategory(categoryId);
+            _categoryRepository.DeleteCategory(categoryId);
             return RedirectToAction(nameof(Index));
         }
     }
